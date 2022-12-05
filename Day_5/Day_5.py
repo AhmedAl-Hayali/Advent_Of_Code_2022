@@ -3,7 +3,7 @@ import re
 result = 0
 stacks = []
 
-with open('Day_5_mock_data.txt', 'r') as data:
+with open('Day_5_data.txt', 'r') as data:
     for line in data:
 
         # print(repr(line))
@@ -46,17 +46,17 @@ with open('Day_5_mock_data.txt', 'r') as data:
 
     # Reading & executing container moves
     for line in data:
-        print(stacks)
         # Read all (3) numbers in 'move `n_containers` from `from_stack` to `to_stack`'
         n_containers, from_stack, to_stack = map(int, re.findall(r'\d+', line))
-        print(n_containers, from_stack, to_stack)
 
         # Repeated stack pop & insert reverses order, so we insert `n_containers` into `to_stack` in reverse order
         # from `from_stack`, adjusting indices by 1 because our stacks are 0-indexed whereas containers are 1-indexed
-        stacks[to_stack - 1] += stacks[from_stack - 1][:n_containers:-1]
+        # first_n_from_stack = [stacks[from_stack - 1][i] for i in range(n_containers)]
+        first_n_from_stack = stacks[from_stack - 1][:n_containers]
+        stacks[to_stack - 1] = first_n_from_stack[::-1] + stacks[to_stack - 1]
 
         # Remove `n_containers` from `from_stack` to reflect movement to `to_stack`
-        stacks[from_stack - 1] = stacks[from_stack - 1][:n_containers]
+        stacks[from_stack - 1] = stacks[from_stack - 1][n_containers:]
 
 # print(stacks)
 print(''.join([stack[0] for stack in stacks]))
