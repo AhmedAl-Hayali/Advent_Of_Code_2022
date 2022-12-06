@@ -1,6 +1,5 @@
 # # Part A
 # import re
-# result = 0
 # stacks = []
 #
 # with open('Day_5_data.txt', 'r') as data:
@@ -59,7 +58,6 @@
 
 # Part B - only one line altered lol
 import re
-result = 0
 stacks = []
 
 with open('Day_5_data.txt', 'r') as data:
